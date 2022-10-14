@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
+    <script src="./assets/js/axios.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="input.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800&family=Lexend:wght@600&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap"
+        rel="stylesheet">
+    <title>PodCastr</title>
+</head>
+
+<body>
+    <div id="app">
+        <div class="principal-colum">
+            <header>
+                <div class="idvisual">
+                    <img src="assets/Logo.png" alt="" class="image-logo">
+                    <p class="efectphrase">O melhor para você ouvir, sempre! </p>
+                </div>
+                <div class="date">
+                    <p v-show="date">{{ date }}</p>
+                </div>
+            </header>
+
+            <div class="main" v-if="selecionado == false">
+                <p class="last-news">Ultimos lançamentos</p>
+                <div class="boxes">
+                    <div class="box-latest">
+                        <div class="thumb">
+                            <img src="assets/capa1.png" alt="">
+                        </div>
+                        <div class="infos-ep">
+                            <p class="title">A importância da contribuição em Open Source</p>
+                            <div class="line">
+                                <div>
+                                    <p class="members">Dego Fernandes, João Pedro, Diego Haz e Bruno Lemos</p>
+                                    <div class="line times start">
+                                        <p class="data"> 22/01/2021 </p>
+                                        <div class="bolinha"></div>
+                                        <p class="duration">01:06:21 </p>
+                                    </div>
+                                </div>
+                                <img src="assets/Play.png" alt="" class="button-play" @click="selecionaPodcast('a-importancia-da-contribuicao-em-open-source')">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="box-latest">
+                        <div class="thumb">
+                            <img src="assets/capa2.png" alt="">
+                        </div>
+                        <div class="infos-ep">
+                            <p class="title">Duas perspectivas diferentes na mesa: uma conversa sobre PF e OOP</p>
+                            <div class="line">
+                                <div class="numbers">
+                                    <p class="members">Dego Fernandes, João Pedro, Diego Haz e Bruno Lemos</p>
+                                    <div class="line times start ">
+                                        <p class="data"> 15/01/2021</p>
+                                        <div class="bolinha"></div>
+                                        <p class="duration"> 01:10:37 </p>
+                                    </div>
+                                </div>
+                                <img src="assets/Play.png" alt="" class="button-play" @click="selecionaPodcast('uma-conversa-sobre-programacao-funcional-e-orientacao-a-objetos')">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="all-episodes">
+                    <p class="last-news"> Todos os episódios</p>
+                    <p class="total"> {{total}} ao total</p>
+                </div>
+
+
+                <div class="episode" v-for="info in infos" v-bind:key="info.id">
+                    <img v-bind:src="thumbnail">
+                    <div class="name-podcats">
+                        <p class="title-podcast">{{info.title}}</p>
+                    </div>
+                    <div class="members-box">
+                        <p class="members-podcast">{{info.members}}</p>
+                    </div>
+                    <div class="published-box">
+                        <p class="rest">{{info.published_at}}</p>
+                    </div>
+
+                    <div class="duration-box">
+                        <p class="rest">{{info.file.duration}} </p>
+                    </div>
+
+                    <div class="play">
+                        <img src="assets/Play.png" alt="" class="button-play" @click="selecionaPodcast(info.id)">
+                    </div>
+                </div>
+            </div>
+
+            <div class="box-podcast-selecionado" v-else>
+                <div class="box-thumb">
+                    <div class="voltar">
+                        <img src="assets/Arrow.png" alt="" @click="voltar">
+                    </div>
+                    <img v-bind:src="thumb" class="thumbnail">
+                    <div class="tocar-pod">
+                        <img src="assets/Play-button.png" alt="" @click="playPodcast"  >
+                    </div>
+                </div>
+                <div class="box-infos-pod">
+                    <p class="titulo">{{namepodcast}}</p>
+
+                    <div class="dats">
+                        <p>{{memberpodcast}}</p>
+                        <div class="bolinha"></div>
+                        <p class="datapodcast">{{datapodcast}} </p>
+                        <div class="bolinha"></div>
+                        <p class="durationpodcast">{{durationpodcast}} </p>
+                    </div>
+
+                    <p class="desscriptionpodcast" v-html="desscriptionpodcast"></p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="second-colum">
+            <div class="ouvindo">
+                <img src="assets/Group.png" alt="">
+                <p class="tocando">Tocando Agora</p>
+            </div>
+
+            <div id="imagem-capa" :style="image" :style="border">
+                <p class="selecione" v-html="selecione"></p>
+            </div>
+
+            <div class="dados-pod">
+                <p class="name-podcast" v-html="namepodcast"></p>
+                <p class="member-podcast" v-html="memberpodcast"></p>
+            </div>
+            <div class="linha-resp">
+                <div id="duration-podcast">
+                    <p class="number-dur" v-html="currentDuration"></p>
+                    <div id="barra">
+                       
+                       <input type="range" min="0" :max="this.durationpodcasts" step="1" id="barprogress" value="0">
+                    </div>
+                    <p class="number-dur" v-html="durationpodcast"></p>
+                </div>
+
+                <div id="buttonsplay" unselectable="on" class="naoSelecionavel">
+                    <div class="back butto" @click="previPodcast"> <img v-bind:src="simbols[0]"> </div>
+                    <div class="play-music" v-if="!isPlaying" @click="playPodcast" :style="myStyle"> <img v-bind:src="play"> </div>
+                    <div class="play-music" v-else @click="pausePodcast" :style="myStyle"> <img v-bind:src="pause"> </div>
+                    <div class="next butto"  @click="nextPodcast"> <img v-bind:src="simbols[1]"> </div>
+
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+    <style>
+        
+    </style>
+</body>
+
+</html>
