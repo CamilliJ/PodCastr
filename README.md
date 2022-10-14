@@ -6,7 +6,7 @@
 
 <div> ⚪ Este projeto é um reprodutor de PodCast desenvolvido em <b> Vue.js </b>. 
 <br> ⚪ Este projeto foi planejado pela Codificar como prova de seleção para Estágio. <br>
-⚪ A sua interface intuitiva permite que o usuário acesse os podcasts disponíveis que foram acessados por meio de uma API externa, sendo possível ouvi-los, com todas as funcionalidades de pausar, e passar para o próximo ou anterior. </b>. <br><br>
+⚪ A sua interface intuitiva permite que o usuário acesse os podcasts disponíveis que foram acessados por meio de uma API externa, sendo possível ouvi-los, com todas as funcionalidades de pausar, e passar para o próximo ou anterior. <br><br>
 ⚪ O site está <b> COMPLETAMENTE RESPONSIVO</b>, podendo ser acessado também por dispositivos móveis. <br> 
 ⚪ Você pode <b> visualizar </b> o projeto diretamente <b> <a href="https://camillij.github.io/PodCastr"> Clicando Aqui! </a></b> <br><br>
 
